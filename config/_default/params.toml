@@ -1,0 +1,19 @@
+author = "PythaGodzilla"
+description = "PythaGodzilla的个人博客，分享技术文章与生活随笔。"
+defaultTheme = "auto"
+
+
+showReadingTime = true
+showShareButtons = false
+showPostNavLinks = true
+showBreadcrumbs = true
+showCodeCopyButton = true
+showWordCount = true
+showToc = true
+comments = true
+
+homeInfoParams = { Title = "欢迎", Content = "不过是一些大声的窃窃私语。", AlignSocialIconsTo = "center" }
+
+
+[assets]
+favicon = "/favicon/WebIcon-512x512.ico"

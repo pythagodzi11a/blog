@@ -1,0 +1,52 @@
+name: Build and Deploy Hugo Site
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: https://git.pythagodzilla.top/pythagodzilla/checkout.git@v4
+        with:
+          submodules: true
+
+      - name: update git submodules
+        run: git submodule update --init --recursive --remote
+
+      # 使用 Go Proxy 安装 Hugo，避免 GitHub 连接超时
+      - name: install Hugo
+        uses: https://git.pythagodzilla.top/pythagodzilla/actions-hugo.git@v3
+        with:
+          hugo-version: "latest"
+          extended: true
+
+      - name: generate static files
+        run: hugo -F --cleanDestinationDir
+
+      - name: Deploy via Native SCP
+        env:
+          # 关键：这里必须指向 secrets (您在Gitea Secrets里配置的值)
+          SSHPASS: ${{ secrets.SERVER_PASSWORD }}
+          SSH_USER: ${{ secrets.SERVER_USER }}
+          SSH_IP: ${{ secrets.SERVER_IP }}
+        run: |
+          # 1. 安装 sshpass
+          apt-get update && apt-get install -y openssh-client sshpass
+
+          # 2. 扫描主机指纹，防止第一次连接询问 yes/no
+          mkdir -p ~/.ssh
+          ssh-keyscan -H "$SSH_IP" >> ~/.ssh/known_hosts 2>/dev/null
+
+          echo "🚀 Starting Deployment..."
+
+          # 3. 清空远程目录
+          sshpass -e ssh -o StrictHostKeyChecking=no "$SSH_USER@$SSH_IP" "rm -rf /var/www/blog/*"
+
+          # 4. 上传文件
+          sshpass -e scp -o StrictHostKeyChecking=no -r public/* "$SSH_USER@$SSH_IP:/var/www/blog/"
+
+          echo "✅ Deployment complete!"

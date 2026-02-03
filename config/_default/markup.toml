@@ -1,0 +1,5 @@
+[highlight]
+style = 'github'           # 代码高亮风格，也可选 monokai, dracula 等
+lineNos = true
+lineNumbersInTable = false
+noClasses = false

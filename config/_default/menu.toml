@@ -1,0 +1,29 @@
+[[main]]
+identifier = "home"
+name = "首页"
+url = "/"
+weight = 10
+
+[[main]]
+identifier = "life"
+name = "生活"
+url = "/life/"
+weight = 20
+
+[[main]]
+identifier = "tech"
+name = "技术"
+url = "/tech/"
+weight = 30
+
+[[main]]
+identifier = "about"
+name = "关于"
+url = "/about/"
+weight = 40
+
+[[main]]
+identifier = "search"
+name = "搜索"
+url = "/search/"
+weight = 50
