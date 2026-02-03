@@ -1,5 +1,5 @@
 ---
 title: "技术"
-description: "分享我的技术文章和经验"
+description: "请把我当成幼儿园的"
 hidemeta: true
 ---
