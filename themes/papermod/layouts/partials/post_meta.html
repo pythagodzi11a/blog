@@ -24,11 +24,11 @@
 {{- $scratch := newScratch }}
 
 {{- if not .Date.IsZero -}}
-{{- $scratch.Add "meta" (slice (printf "<span title='%s'>%s</span>" (.Date) (.Date | time.Format (default "2006-01-02" site.Params.DateFormat)))) }}
+{{- $scratch.Add "meta" (slice (printf "<span title='%s'>%s</span>" (.Date) (.Date | time.Format ":date_medium"))) }}
 {{- end }}
 
 {{- if ne $lastmod $date -}}
-{{- $scratch.Add "meta" (slice (printf "<span title='%s'>(最近更新于 %s)</span>" (.Lastmod) (.Lastmod | time.Format (default "2006-01-02" site.Params.DateFormat)))) }}
+{{- $scratch.Add "meta" (slice (printf "<span title='%s'>(最近更新于 %s)</span>" (.Lastmod) (.Lastmod | time.Format ":date_medium" ))) }}
 {{- end }}
 
 {{- with ($scratch.Get "meta") }}

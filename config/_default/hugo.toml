@@ -6,3 +6,5 @@ theme = 'papermod'
 enableRobotsTXT = true
 newContentEditor = ""
 enableGitInfo = true
+defaultContentLanguage = 'zh-hans'
+timeZone = "Asia/Shanghai"

@@ -7,6 +7,7 @@ tags:
   - "Clion"
   - "CubeMX"
   - "环境配置"
+draft: true
 ---
 
 从上一篇开始折腾了两篇
