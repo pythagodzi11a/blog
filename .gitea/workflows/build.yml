@@ -17,6 +17,9 @@ jobs:
       - name: update git submodules
         run: git submodule update --init --recursive --remote
 
+      - name: identify enviroment
+        run: echo $http_proxy && echo $https_proxy
+
       - name: install Hugo
         uses: https://git.pythagodzilla.top/pythagodzilla/actions-hugo.git@v3
         with:
