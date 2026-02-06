@@ -14,46 +14,42 @@ jobs:
         with:
           submodules: true
 
-      - name: update git submodules
-        run: git submodule update --init --recursive --remote
-
-      - name: Switch to China APT Mirror
+      - name: Force Switch to China Mirror and Install Hugo
         run: |
-          # 使用 sed 命令将默认的 ubuntu 源替换为清华大学 TUNA 镜像
-          sudo sed -i 's/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list
-          sudo sed -i 's/security.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list
+          echo "🚀 正在强制更换 APT 国内源..."
+          # 1. 针对旧格式 (sources.list)
+          if [ -f /etc/apt/sources.list ]; then
+            sudo sed -i 's|http://.*archive.ubuntu.com|https://mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list
+            sudo sed -i 's|http://.*security.ubuntu.com|https://mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list
+          fi
 
-      - name: Install Hugo via APT
-        run: |
+          # 2. 针对新格式 (ubuntu.sources - Ubuntu 24.04+)
+          if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
+            sudo sed -i 's|http://.*archive.ubuntu.com|https://mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list.d/ubuntu.sources
+            sudo sed -i 's|http://.*security.ubuntu.com|https://mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list.d/ubuntu.sources
+          fi
+
+          # 3. 执行更新并安装
           sudo apt-get update
           sudo apt-get install -y hugo
 
-      - name: check hugo version
-        run: hugo version
-
       - name: generate static files
-        run: hugo -F --cleanDestinationDir
+        run: |
+          # 检查版本，如果发现 apt 安装的版本太低无法构建，请考虑方案 2（自带二进制）
+          hugo version
+          hugo -F --cleanDestinationDir
 
       - name: Deploy via Native SCP
         env:
-          # 关键：这里必须指向 secrets (您在Gitea Secrets里配置的值)
           SSHPASS: ${{ secrets.SERVER_PASSWORD }}
           SSH_USER: ${{ secrets.SERVER_USER }}
           SSH_IP: ${{ secrets.SERVER_IP }}
         run: |
-          # 1. 安装 sshpass
           apt-get update && apt-get install -y openssh-client sshpass
-
-          # 2. 扫描主机指纹，防止第一次连接询问 yes/no
           mkdir -p ~/.ssh
           ssh-keyscan -H "$SSH_IP" >> ~/.ssh/known_hosts 2>/dev/null
 
           echo "🚀 Starting Deployment..."
-
-          # 3. 清空远程目录
           sshpass -e ssh -o StrictHostKeyChecking=no "$SSH_USER@$SSH_IP" "rm -rf /var/www/blog/*"
-
-          # 4. 上传文件
           sshpass -e scp -o StrictHostKeyChecking=no -r public/* "$SSH_USER@$SSH_IP:/var/www/blog/"
-
           echo "✅ Deployment complete!"
