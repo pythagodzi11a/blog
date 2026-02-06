@@ -19,8 +19,8 @@ jobs:
       
       - name: set proxy manually
         run: |
-          echo "http_proxy=http://10.0.0.1:7891" >> $GITHUB_ENV
-          echo "https_proxy=http://10.0.0.1:7891" >> $GITHUB_ENV
+          echo "http_proxy=http://10.0.0.1:7890" >> $GITHUB_ENV
+          echo "https_proxy=http://10.0.0.1:7890" >> $GITHUB_ENV
 
       - name: identify environment
         run: |
