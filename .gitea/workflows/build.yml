@@ -17,6 +17,9 @@ jobs:
       - name: update git submodules
         run: git submodule update --init --recursive --remote
 
+      - name: set proxy manually
+        run: export http_proxy = http://10.0.0.1:7891 && export https_proxy = http://10.0.0.1:7891
+
       - name: identify enviroment
         run: echo $http_proxy && echo $https_proxy
 
