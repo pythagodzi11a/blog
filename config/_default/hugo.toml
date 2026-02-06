@@ -5,3 +5,4 @@ title = 'PythaGodzilla Blog'
 theme = 'papermod'
 enableRobotsTXT = true
 newContentEditor = ""
+enableGitInfo = true
