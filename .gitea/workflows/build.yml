@@ -17,7 +17,6 @@ jobs:
       - name: update git submodules
         run: git submodule update --init --recursive --remote
 
-      # 使用 Go Proxy 安装 Hugo，避免 GitHub 连接超时
       - name: install Hugo
         uses: https://git.pythagodzilla.top/pythagodzilla/actions-hugo.git@v3
         with:
