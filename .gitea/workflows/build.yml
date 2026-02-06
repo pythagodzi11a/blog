@@ -17,11 +17,19 @@ jobs:
       - name: update git submodules
         run: git submodule update --init --recursive --remote
 
-      - name: install Hugo
-        uses: https://git.pythagodzilla.top/pythagodzilla/actions-hugo.git@v3
-        with:
-          hugo-version: "latest"
-          extended: true
+      - name: Switch to China APT Mirror
+        run: |
+          # 使用 sed 命令将默认的 ubuntu 源替换为清华大学 TUNA 镜像
+          sudo sed -i 's/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list
+          sudo sed -i 's/security.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list
+
+      - name: Install Hugo via APT
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y hugo
+
+      - name: check hugo version
+        run: hugo version
 
       - name: generate static files
         run: hugo -F --cleanDestinationDir
