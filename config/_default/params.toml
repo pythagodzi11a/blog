@@ -15,6 +15,7 @@ comments = true
 
 homeInfoParams = { Title = "欢迎", Content = "不过是一些大声的窃窃私语。", AlignSocialIconsTo = "center" }
 
+mainSections = ["life", "tech"]
 
 [assets]
 favicon = "/favicon/WebIcon-512x512.ico"
