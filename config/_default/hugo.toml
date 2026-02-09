@@ -1,7 +1,7 @@
 baseURL = 'https://blog.pythagodzilla.top/'
 languageCode = 'zh-cn'
 hasCJKLanguage = true
-title = 'PythaGodzilla Blog'
+title = "PythaGodzilla's Blog"
 theme = 'papermod'
 enableRobotsTXT = true
 newContentEditor = ""
