@@ -1,6 +1,7 @@
 author = "PythaGodzilla"
 description = "PythaGodzilla的个人博客，分享技术文章与生活随笔。"
 defaultTheme = "auto"
+env = "production"
 
 
 showReadingTime = true
