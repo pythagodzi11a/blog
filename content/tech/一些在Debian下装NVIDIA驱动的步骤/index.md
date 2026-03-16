@@ -1,6 +1,6 @@
 ---
 title: "一些在Debian下装NVIDIA驱动的步骤"
-date: "2026-03-16T20:50+08:00"
+date: "2026-03-16T20:50:00+08:00"
 tags:
     - "技术"
 categories:
