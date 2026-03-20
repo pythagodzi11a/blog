@@ -18,7 +18,7 @@ categories:
 4. 然后直接`apt install nvidia-driver`即可
 
 ----
-但是后续会有什么问题呢，在我自己的环境`Debian 13`, `kde`下呈现为`apt full-upgrade`之后导致外界屏幕不亮。
+但是后续会有什么问题呢，在我自己的环境`Debian 13`, `kde`下呈现为`apt full-upgrade`之后导致外接屏幕不亮。
 其实本质原因是nvidia driver在内核加载的时候失败了，在开机的时候就能看见刚开始加载的时候有三四条红色的error,就是那个刷屏的界面。之所以用外屏这个特征来表述是因为这个现象最明显。
 
 更深一点的原因是因为更新了linux 内核，但是没有自己安装header包，再深一点我也没管了
