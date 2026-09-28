@@ -1,6 +1,7 @@
 ---
 title: "关于本站"
 comments: false
+hidemeta: true
 ---
 
 ## JUST FOR FUN
